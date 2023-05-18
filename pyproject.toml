@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "sms-gpt"
+version = "0.1.0"
+description = "A service to SMS chat with OpenAI GPT models."
+authors = ["Jake Cyr <cyrjake@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sms_gpt"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+twilio = "^8.2.0"
+flask = "^2.3.2"
+openai = "^0.27.6"
+
+[tool.poetry.scripts]
+start-sms-gpt = "sms_gpt.main:start"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
