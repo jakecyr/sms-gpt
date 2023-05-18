@@ -6,13 +6,6 @@ import os
 
 app = Flask(__name__)
 
-OPEN_AI_KEY: str | None = os.environ.get("OPENAI_API_KEY")
-
-if not OPEN_AI_KEY:
-    raise ValueError("Missing OPENAI_API_KEY env variable")
-
-openai.api_key = OPEN_AI_KEY
-
 
 @app.route("/sms/respond", methods=["GET", "POST"])
 def sms_reply() -> str:
@@ -43,7 +36,16 @@ def sms_reply() -> str:
 
 
 def start() -> None:
-    app.run(debug=True)
+    OPEN_AI_KEY: str | None = os.environ.get("OPENAI_API_KEY")
+
+    if not OPEN_AI_KEY:
+        raise ValueError("Missing OPENAI_API_KEY env variable")
+
+    openai.api_key = OPEN_AI_KEY
+
+    port = int(os.environ.get("PORT", 5000))
+
+    app.run(debug=True, port=port)
 
 
 if __name__ == "__main__":
