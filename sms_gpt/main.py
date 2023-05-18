@@ -1,10 +1,15 @@
 from typing import Any
-from flask import Flask, abort, request
+from flask import Flask, abort, request, send_from_directory
 from twilio.twiml.messaging_response import MessagingResponse
 import openai
 import os
 
 app = Flask(__name__)
+
+
+@app.route("/<path:path>", methods=["GET"])
+def get_root_static_files(path):
+    return send_from_directory("static", path)
 
 
 @app.route("/sms/respond", methods=["GET", "POST"])
